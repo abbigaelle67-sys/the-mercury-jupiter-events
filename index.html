@@ -470,12 +470,12 @@ body{background:#fff;color:#171717}
 <div class="field full"><label for="budget">Budget estimé pour l’événement *</label>
 <select id="budget" name="Budget estimé pour l’événement" required>
 <option value="">Sélectionner une fourchette</option>
-<option>Moins de 25 000 HTG</option>
-<option>25 000 à 50 000 HTG</option>
-<option>50 000 à 100 000 HTG</option>
-<option>100 000 à 250 000 HTG</option>
-<option>250 000 à 500 000 HTG</option>
-<option>Plus de 500 000 HTG</option>
+<option>Moins de 25 000 HTG (≈ 191 USD)</option>
+<option>25 000 à 50 000 HTG (≈ 191 à 383 USD)</option>
+<option>50 000 à 100 000 HTG (≈ 383 à 766 USD)</option>
+<option>100 000 à 250 000 HTG (≈ 766 à 1 914 USD)</option>
+<option>250 000 à 500 000 HTG (≈ 1 914 à 3 828 USD)</option>
+<option>Plus de 500 000 HTG (plus de 3 828 USD)</option>
 <option>Budget à définir avec l’équipe</option>
 </select></div>
 </div></div>
@@ -633,7 +633,7 @@ body{background:#fff;color:#171717}
 <div class="birthday-field"><label for="birthdayStyle">Style ou ambiance souhaitée</label><select id="birthdayStyle" required><option value="">Choisir une ambiance</option><option>Élégant et luxueux</option><option>Royal et sophistiqué</option><option>Moderne et tendance</option><option>Enfantin et coloré</option><option>Glamour</option><option>Chic et minimaliste</option><option>Thème personnalisé</option><option>J’aimerais des conseils</option></select></div>
 <div class="birthday-field"><label for="birthdayGuests">Nombre approximatif d’invités</label><select id="birthdayGuests"><option>À déterminer</option><option>Moins de 20 personnes</option><option>20 à 50 personnes</option><option>51 à 100 personnes</option><option>Plus de 100 personnes</option></select></div>
 <div class="birthday-field"><label for="birthdayPalette">Couleurs préférées</label><input id="birthdayPalette" type="text" placeholder="Ex. orange et blanc, rouge et or"></div>
-<div class="birthday-field"><label for="birthdayBudget">Budget envisagé (HTG), si connu</label><input id="birthdayBudget" type="number" min="0" step="500" placeholder="Facultatif"></div>
+<div class="birthday-field"><label for="birthdayBudget">Budget envisagé en gourdes (HTG)</label><input id="birthdayBudget" type="number" min="0" step="500" placeholder="Facultatif"></div><div class="birthday-field"><label for="birthdayBudgetUSD">Budget envisagé en dollars américains (USD)</label><input id="birthdayBudgetUSD" type="number" min="0" step="1" placeholder="Facultatif"></div>
 <div class="birthday-field full"><label for="birthdayDetails">Racontez-nous votre idée ou votre thème</label><textarea id="birthdayDetails" placeholder="Ex. anniversaire de princesse pour une petite fille, fête élégante pour une dame, fête surprise, décoration, traiteur…"></textarea></div>
 </div>
 <div class="birthday-hint" style="margin-top:18px">Votre demande ne constitue pas une réservation confirmée. Notre équipe échangera avec vous pour préciser les besoins, la disponibilité et le devis.</div>
@@ -648,10 +648,10 @@ body{background:#fff;color:#171717}
 <div class="wrap">
 <div class="eyebrow">Préparer votre enveloppe</div>
 <h2>VOTRE BUDGET, EN TOUTE CLARTÉ.</h2>
-<p class="lead">Cet outil vous aide à organiser votre budget indicatif. Il ne constitue pas un devis et ne calcule pas les prix réels de nos prestations.</p>
+<p class="lead">Cet outil vous aide à organiser votre budget indicatif en gourdes haïtiennes (HTG) et en dollars américains (USD). Il ne constitue pas un devis. Conversion indicative : 1 USD ≈ 130,62 HTG, selon le taux de référence BRH du 9 octobre 2026. <a href="https://www.brh.ht/supervision/" target="_blank" rel="noopener">Consulter le taux BRH</a>.</p>
 <div class="grid grid2 budget-layout">
 <div class="card">
-<div class="field"><label for="budgetTotal">Budget total envisagé (HTG)</label><input id="budgetTotal" type="number" min="0" step="500" placeholder="Ex. 150000"></div>
+<div class="field"><label for="budgetTotal">Budget total envisagé (HTG)</label><input id="budgetTotal" type="number" min="0" step="500" placeholder="Ex. 150000"></div><div class="field"><label for="budgetTotalUSD">Ou budget total envisagé (USD)</label><input id="budgetTotalUSD" type="number" min="0" step="1" placeholder="Ex. 1 150"></div><p class="small" id="budgetConversionNote">Entrez le montant en HTG ou en USD. L’autre devise sera calculée automatiquement à titre indicatif.</p>
 <div class="field"><label for="budgetGuests">Nombre d’invités</label><input id="budgetGuests" type="number" min="1" max="10000" placeholder="Ex. 80"></div>
 <div class="field"><label for="budgetPriority">Priorité principale</label><select id="budgetPriority"><option value="equilibre">Répartition équilibrée</option><option value="decoration">Décoration et ambiance</option><option value="traiteur">Restauration et service traiteur</option><option value="coordination">Organisation et coordination</option></select></div>
 <button type="button" class="btn primary" id="calculateBudget">Organiser mon budget</button>
@@ -859,12 +859,13 @@ body{background:#fff;color:#171717}
   });
   var calculate=document.getElementById('calculateBudget');
   if(calculate)calculate.addEventListener('click',function(){
-    var total=Number(document.getElementById('budgetTotal').value),guestCount=Number(document.getElementById('budgetGuests').value),priority=document.getElementById('budgetPriority').value,result=document.getElementById('budgetResult');
-    if(!total||total<1||!guestCount||guestCount<1){result.textContent='Veuillez entrer un budget positif et un nombre d’invités valide.';return;}
+    var enteredHTG=Number(document.getElementById('budgetTotal').value),enteredUSD=Number(document.getElementById('budgetTotalUSD').value),total=enteredHTG>0?enteredHTG:enteredUSD*130.62,guestCount=Number(document.getElementById('budgetGuests').value),priority=document.getElementById('budgetPriority').value,result=document.getElementById('budgetResult');
+    if(!total||total<1||!guestCount||guestCount<1){result.textContent='Veuillez entrer un budget positif en HTG ou en USD, ainsi qu’un nombre d’invités valide.';return;}
     var shares=priority==='decoration'?[.45,.20,.20,.15]:priority==='traiteur'?[.20,.45,.20,.15]:priority==='coordination'?[.20,.20,.40,.20]:[.30,.30,.25,.15];
     var labels=['Décoration & ambiance','Restauration / service traiteur','Organisation & coordination','Réserve / imprévus'];
-    var fmt=function(n){return Math.round(n).toLocaleString('fr-FR')+' HTG'};
-    result.innerHTML='<strong>Répartition indicative — '+fmt(total)+'</strong><ul>'+labels.map(function(label,i){return '<li>'+label+' : <strong>'+fmt(total*shares[i])+'</strong> ('+Math.round(shares[i]*100)+' %)</li>'}).join('')+'</ul><p>Budget indicatif par invité : <strong>'+fmt(total/guestCount)+'</strong>.</p><small>Cette répartition est un outil de préparation, pas un tarif de prestation ni un devis.</small>';
+    var fmtHTG=function(n){return Math.round(n).toLocaleString('fr-FR')+' HTG'};
+    var fmtUSD=function(n){return Math.round(n/130.62).toLocaleString('fr-FR')+' USD'};
+    result.innerHTML='<strong>Répartition indicative — '+fmtHTG(total)+' (≈ '+fmtUSD(total)+')</strong><ul>'+labels.map(function(label,i){return '<li>'+label+' : <strong>'+fmtHTG(total*shares[i])+' (≈ '+fmtUSD(total*shares[i])+')</strong> ('+Math.round(shares[i]*100)+' %)</li>'}).join('')+'</ul><p>Budget indicatif par invité : <strong>'+fmtHTG(total/guestCount)+' (≈ '+fmtUSD(total/guestCount)+')</strong>.</p><small>Conversion indicative au taux de 1 USD ≈ 130.62 HTG, susceptible de changer. Cette répartition est un outil de préparation, pas un tarif de prestation ni un devis.</small>';
   });
 })();
 </script>
@@ -934,13 +935,28 @@ body{background:#fff;color:#171717}
    ['Style / ambiance',get('birthdayStyle')],
    ['Nombre d’invités',get('birthdayGuests')],
    ['Couleurs',get('birthdayPalette')],
-   ['Budget envisagé',get('birthdayBudget')==='À préciser'?'Non précisé':get('birthdayBudget')+' HTG'],
+   ['Budget envisagé',[(document.getElementById('birthdayBudget').value?document.getElementById('birthdayBudget').value+' HTG':''),(document.getElementById('birthdayBudgetUSD').value?document.getElementById('birthdayBudgetUSD').value+' USD':'')].filter(Boolean).join(' / ')||'Non précisé'],
    ['Idée / thème',get('birthdayDetails')]
   ];
   var message='Bonjour THE MERCURY JUPITER EVENTS — ÉVÉNEMENTIEL. Je souhaite discuter de mon projet de célébration :\n\n'+fields.map(function(item){return item[0]+' : '+item[1];}).join('\n')+'\n\nMerci de me renseigner sur les options, la disponibilité et le devis.';
   document.getElementById('birthdayInquiryStatus').textContent='Votre demande va s’ouvrir dans WhatsApp. Veuillez vérifier le message et appuyer sur Envoyer.';
   window.open('https://wa.me/50937469553?text='+encodeURIComponent(message),'_blank','noopener');
  });
+})();
+</script>
+
+
+<script>
+(function(){
+ var RATE=130.62;
+ function connectPair(htgId,usdId){
+  var h=document.getElementById(htgId),u=document.getElementById(usdId);
+  if(!h||!u)return;
+  h.addEventListener('input',function(){if(h.value.trim()===''){u.value='';return;}u.value=(Number(h.value)/RATE).toFixed(2);});
+  u.addEventListener('input',function(){if(u.value.trim()===''){h.value='';return;}h.value=Math.round(Number(u.value)*RATE);});
+ }
+ connectPair('budgetTotal','budgetTotalUSD');
+ connectPair('birthdayBudget','birthdayBudgetUSD');
 })();
 </script>
 
