@@ -879,13 +879,12 @@ body{background:#fff;color:#171717}
   });
   var calculate=document.getElementById('calculateBudget');
   if(calculate)calculate.addEventListener('click',function(){
-    var enteredHTG=Number(document.getElementById('budgetTotal').value),enteredUSD=Number(document.getElementById('budgetTotalUSD').value),total=enteredHTG>0?enteredHTG:enteredUSD*130.62,guestCount=Number(document.getElementById('budgetGuests').value),priority=document.getElementById('budgetPriority').value,result=document.getElementById('budgetResult');
-    if(!total||total<1||!guestCount||guestCount<1){result.textContent='Veuillez entrer un budget positif en HTG ou en USD, ainsi qu’un nombre d’invités valide.';return;}
+    var total=Number(document.getElementById('budgetTotal').value),guestCount=Number(document.getElementById('budgetGuests').value),priority=document.getElementById('budgetPriority').value,result=document.getElementById('budgetResult');
+    if(!total||total<25000||total>10000000||!guestCount||guestCount<1){result.textContent='Veuillez entrer un budget entre 25 000 et 10 000 000 gourdes et un nombre d’invités valide.';return;}
     var shares=priority==='decoration'?[.45,.20,.20,.15]:priority==='traiteur'?[.20,.45,.20,.15]:priority==='coordination'?[.20,.20,.40,.20]:[.30,.30,.25,.15];
     var labels=['Décoration & ambiance','Restauration / service traiteur','Organisation & coordination','Réserve / imprévus'];
-    var fmtHTG=function(n){return Math.round(n).toLocaleString('fr-FR')+' HTG'};
-    var fmtUSD=function(n){return Math.round(n/130.62).toLocaleString('fr-FR')+' USD'};
-    result.innerHTML='<strong>Répartition indicative — '+fmtHTG(total)+' (≈ '+fmtUSD(total)+')</strong><ul>'+labels.map(function(label,i){return '<li>'+label+' : <strong>'+fmtHTG(total*shares[i])+' (≈ '+fmtUSD(total*shares[i])+')</strong> ('+Math.round(shares[i]*100)+' %)</li>'}).join('')+'</ul><p>Budget indicatif par invité : <strong>'+fmtHTG(total/guestCount)+' (≈ '+fmtUSD(total/guestCount)+')</strong>.</p><small>Conversion indicative au taux de 1 USD ≈ 130.62 HTG, susceptible de changer. Cette répartition est un outil de préparation, pas un tarif de prestation ni un devis.</small>';
+    var fmtHTG=function(n){return Math.round(n).toLocaleString('fr-FR')+' gourdes HTG'};
+    result.innerHTML='<strong>Répartition indicative — '+fmtHTG(total)+'</strong><ul>'+labels.map(function(label,i){return '<li>'+label+' : <strong>'+fmtHTG(total*shares[i])+'</strong> ('+Math.round(shares[i]*100)+' %)</li>'}).join('')+'</ul><p>Budget indicatif par invité : <strong>'+fmtHTG(total/guestCount)+'</strong>.</p><small>Cette répartition est un outil de préparation, pas un tarif de prestation ni un devis.</small>';
   });
 })();
 </script>
