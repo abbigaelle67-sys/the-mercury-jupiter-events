@@ -243,6 +243,22 @@ body{background:#fff;color:#171717}
 .newsletter-form input{flex:1;min-width:170px}
 @media(max-width:700px){.tools-grid{grid-template-columns:1fr}.tool-card{padding:18px}.tool-options,.menu-list{grid-template-columns:1fr}}
 
+
+/* Section orange — personnalisation des célébrations */
+.birthday-orange{background:linear-gradient(135deg,#fff0df 0%,#ffe0bd 48%,#fff8ef 100%);color:#382416}
+.birthday-orange .eyebrow{color:#a84f10}
+.birthday-orange h2,.birthday-orange h3{color:#382416}
+.birthday-panel{background:rgba(255,255,255,.92);border:1px solid #f1c49c;border-radius:20px;padding:clamp(18px,3vw,30px);box-shadow:0 14px 34px rgba(128,68,21,.09)}
+.birthday-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.birthday-field label{display:block;font-weight:650;font-size:.9rem;margin-bottom:7px;color:#50331f}
+.birthday-field input,.birthday-field select,.birthday-field textarea{width:100%;padding:12px 13px;border:1px solid #e5bd9a;border-radius:10px;background:#fffdfb;color:#35271d;font:inherit;box-sizing:border-box}
+.birthday-field textarea{min-height:105px;resize:vertical}
+.birthday-field.full{grid-column:1/-1}
+.birthday-orange .btn{background:#b95312;color:#fff;border:1px solid #b95312}
+.birthday-orange .btn:hover{background:#8f3e0b}
+.birthday-hint{background:#fff7ed;border-left:3px solid #d97724;border-radius:0 9px 9px 0;padding:12px 14px;font-size:.88rem}
+@media(max-width:650px){.birthday-form-grid{grid-template-columns:1fr}.birthday-field.full{grid-column:auto}}
+
 </style>
 </head>
 <body>
@@ -262,7 +278,7 @@ body{background:#fff;color:#171717}
 <div class="wrap navin">
 <a class="brand" href="#accueil" aria-label="THE MERCURY JUPITER EVENTS"><img src="assets/logo-rond-officiel.jpg" alt="Logo officiel THE MERCURY JUPITER EVENTS"><span class="brand-name">THE MERCURY JUPITER EVENTS<small>ÉVÉNEMENTIEL</small></span></a>
 <nav class="navlinks" aria-label="Navigation principale">
-<a href="#apropos">À propos</a><a href="#equipe">L’équipe</a><a href="#services">Services</a><a href="#galerie">Galerie photos</a><a href="#createur">Créer mon événement</a><a href="#budget-estimateur">Budget</a><a href="#outils-clients">Outils clients</a><a href="#formules">Formules</a><a href="#experience">Expérience</a><a href="#vision2040">Vision 2040</a><a href="#partenariats">Partenariats</a><a href="presentation.html">Dossier de présentation</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+<a href="#apropos">À propos</a><a href="#equipe">L’équipe</a><a href="#services">Services</a><a href="#galerie">Galerie photos</a><a href="#createur">Créer mon événement</a><a href="#budget-estimateur">Budget</a><a href="#personnalisez-evenement">Personnaliser</a><a href="#outils-clients">Outils clients</a><a href="#formules">Formules</a><a href="#experience">Expérience</a><a href="#vision2040">Vision 2040</a><a href="#partenariats">Partenariats</a><a href="presentation.html">Dossier de présentation</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
 </nav>
 <button class="menu" type="button" onclick="document.getElementById('mobileNav').hidden=!document.getElementById('mobileNav').hidden" aria-label="Ouvrir le menu">☰</button>
 </div>
@@ -601,6 +617,33 @@ body{background:#fff;color:#171717}
 </div>
 </section>
 
+
+<section id="personnalisez-evenement" class="section birthday-orange">
+<div class="wrap">
+<div class="eyebrow">Votre célébration, votre histoire</div>
+<h2>PERSONNALISEZ VOTRE ÉVÉNEMENT.</h2>
+<p class="lead">Un anniversaire d’enfant, une fête pour adolescent, une célébration élégante pour une dame ou un événement familial : dites-nous ce que vous imaginez, et notre équipe pourra mieux comprendre votre projet.</p>
+<div class="birthday-panel">
+<form id="birthdayInquiryForm">
+<div class="birthday-form-grid">
+<div class="birthday-field"><label for="birthdayEventType">Quel type d’événement souhaitez-vous organiser ?</label><select id="birthdayEventType" required><option value="">Choisir un type</option><option>Anniversaire</option><option>Fête pour enfant</option><option>Fête pour adolescent</option><option>Anniversaire surprise</option><option>Fiançailles</option><option>Mariage</option><option>Baby shower</option><option>Bridal shower</option><option>Graduation</option><option>Dîner privé</option><option>Autre célébration</option></select></div>
+<div class="birthday-field"><label for="birthdayForWho">Pour qui organisez-vous la fête ?</label><select id="birthdayForWho" required><option value="">Choisir</option><option>Un enfant</option><option>Un adolescent</option><option>Une adulte / une dame</option><option>Un adulte / un homme</option><option>Un couple</option><option>Un membre de la famille</option><option>Un ami / une amie</option><option>Moi-même</option><option>Autre</option></select></div>
+<div class="birthday-field"><label for="birthdayAge">Quel âge la personne va-t-elle avoir ?</label><input id="birthdayAge" type="text" placeholder="Ex. 5 ans, 18 ans, 30 ans, 50 ans"></div>
+<div class="birthday-field"><label for="birthdayDate">Date souhaitée</label><input id="birthdayDate" type="date" required></div>
+<div class="birthday-field"><label for="birthdayStyle">Style ou ambiance souhaitée</label><select id="birthdayStyle" required><option value="">Choisir une ambiance</option><option>Élégant et luxueux</option><option>Royal et sophistiqué</option><option>Moderne et tendance</option><option>Enfantin et coloré</option><option>Glamour</option><option>Chic et minimaliste</option><option>Thème personnalisé</option><option>J’aimerais des conseils</option></select></div>
+<div class="birthday-field"><label for="birthdayGuests">Nombre approximatif d’invités</label><select id="birthdayGuests"><option>À déterminer</option><option>Moins de 20 personnes</option><option>20 à 50 personnes</option><option>51 à 100 personnes</option><option>Plus de 100 personnes</option></select></div>
+<div class="birthday-field"><label for="birthdayPalette">Couleurs préférées</label><input id="birthdayPalette" type="text" placeholder="Ex. orange et blanc, rouge et or"></div>
+<div class="birthday-field"><label for="birthdayBudget">Budget envisagé (HTG), si connu</label><input id="birthdayBudget" type="number" min="0" step="500" placeholder="Facultatif"></div>
+<div class="birthday-field full"><label for="birthdayDetails">Racontez-nous votre idée ou votre thème</label><textarea id="birthdayDetails" placeholder="Ex. anniversaire de princesse pour une petite fille, fête élégante pour une dame, fête surprise, décoration, traiteur…"></textarea></div>
+</div>
+<div class="birthday-hint" style="margin-top:18px">Votre demande ne constitue pas une réservation confirmée. Notre équipe échangera avec vous pour préciser les besoins, la disponibilité et le devis.</div>
+<div style="margin-top:18px"><button type="submit" class="btn">Envoyer ma demande sur WhatsApp</button></div>
+<p id="birthdayInquiryStatus" class="small" role="status" aria-live="polite"></p>
+</form>
+</div>
+</div>
+</section>
+
 <section id="budget-estimateur" class="section">
 <div class="wrap">
 <div class="eyebrow">Préparer votre enveloppe</div>
@@ -732,7 +775,7 @@ body{background:#fff;color:#171717}
 <footer class="footer">
 <div class="wrap footergrid">
 <div><img src="assets/logo-rond-officiel.jpg" alt="Logo officiel" style="width:92px;height:92px;border-radius:50%;overflow:hidden;object-fit:contain;margin-bottom:16px"><div class="eyebrow" style="color:#79bfe0">THE MERCURY JUPITER EVENTS</div><h3>Événements & Événementiels</h3><p>Votre vision. Notre créativité. Une expérience inoubliable.</p></div>
-<div><div class="eyebrow" style="color:#79bfe0">Navigation</div><p style="margin-top:14px"><a href="#apropos">À propos</a><br><a href="#services">Services</a><br><a href="#formules">Formules</a><br><a href="#experience">Expérience</a><br><a href="#vision2040">Vision 2040</a><br><a href="#faq">Questions fréquentes</a><br><a href="#outils-clients">Outils clients</a><br><a href="presentation.html">Dossier de présentation</a><br><a href="#contact">Contact</a><br><a href="legal.html">Informations légales & confidentialité</a></p></div>
+<div><div class="eyebrow" style="color:#79bfe0">Navigation</div><p style="margin-top:14px"><a href="#apropos">À propos</a><br><a href="#services">Services</a><br><a href="#formules">Formules</a><br><a href="#experience">Expérience</a><br><a href="#vision2040">Vision 2040</a><br><a href="#faq">Questions fréquentes</a><br><a href="#outils-clients">Outils clients</a><br><a href="#personnalisez-evenement">Personnaliser mon événement</a><br><a href="presentation.html">Dossier de présentation</a><br><a href="#contact">Contact</a><br><a href="legal.html">Informations légales & confidentialité</a></p></div>
 <div><div class="eyebrow" style="color:#79bfe0">Présence numérique</div><p style="margin-top:14px"><a href="https://www.instagram.com/abbigaellecarlannevenementiels" target="_blank" rel="noopener">Instagram</a><br><a href="https://wa.me/50937469553?text=Bonjour%2C%20je%20souhaiterais%20obtenir%20davantage%20d%E2%80%99informations%20concernant%20les%20services%20de%20THE%20MERCURY%20JUPITER%20EVENTS%20et%20%C3%A9changer%20avec%20votre%20%C3%A9quipe%20au%20sujet%20de%20mon%20projet%20%C3%A9v%C3%A9nementiel.%20Merci%20d%E2%80%99avance%20pour%20votre%20retour.">WhatsApp</a><br><a href="mailto:carlanne.abbigaelleevents@gmail.com">Email</a></p></div>
 </div>
 <div class="wrap footerbottom"><span>© 2026 THE MERCURY JUPITER ÉVÉNEMENTS</span><span>CONCEVOIR DES EXPÉRIENCES. CRÉER DES MOMENTS. CONSTRUIRE L’AVENIR.</span></div>
@@ -871,6 +914,32 @@ body{background:#fff;color:#171717}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('newsletterStatus').textContent='Veuillez saisir une adresse email valide.';return;}
   window.location.href='mailto:carlanne.abbigaelleevents@gmail.com?subject='+encodeURIComponent('Demande d’inscription aux actualités')+'&body='+encodeURIComponent('Bonjour, je souhaite recevoir les actualités de THE MERCURY JUPITER EVENTS.\nMon email : '+email+'\nMerci.');
   document.getElementById('newsletterStatus').textContent='Votre application email va s’ouvrir pour confirmer la demande. Votre inscription ne sera effective qu’après envoi du message.';
+ });
+})();
+</script>
+
+
+<script>
+(function(){
+ var form=document.getElementById('birthdayInquiryForm');
+ if(!form)return;
+ form.addEventListener('submit',function(event){
+  event.preventDefault();
+  var get=function(id){return (document.getElementById(id).value||'À préciser').trim();};
+  var fields=[
+   ['Type d’événement',get('birthdayEventType')],
+   ['Pour qui',get('birthdayForWho')],
+   ['Âge célébré',get('birthdayAge')],
+   ['Date souhaitée',get('birthdayDate')],
+   ['Style / ambiance',get('birthdayStyle')],
+   ['Nombre d’invités',get('birthdayGuests')],
+   ['Couleurs',get('birthdayPalette')],
+   ['Budget envisagé',get('birthdayBudget')==='À préciser'?'Non précisé':get('birthdayBudget')+' HTG'],
+   ['Idée / thème',get('birthdayDetails')]
+  ];
+  var message='Bonjour THE MERCURY JUPITER EVENTS — ÉVÉNEMENTIEL. Je souhaite discuter de mon projet de célébration :\n\n'+fields.map(function(item){return item[0]+' : '+item[1];}).join('\n')+'\n\nMerci de me renseigner sur les options, la disponibilité et le devis.';
+  document.getElementById('birthdayInquiryStatus').textContent='Votre demande va s’ouvrir dans WhatsApp. Veuillez vérifier le message et appuyer sur Envoyer.';
+  window.open('https://wa.me/50937469553?text='+encodeURIComponent(message),'_blank','noopener');
  });
 })();
 </script>
