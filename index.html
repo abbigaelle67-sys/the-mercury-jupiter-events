@@ -259,6 +259,13 @@ body{background:#fff;color:#171717}
 .birthday-hint{background:#fff7ed;border-left:3px solid #d97724;border-radius:0 9px 9px 0;padding:12px 14px;font-size:.88rem}
 @media(max-width:650px){.birthday-form-grid{grid-template-columns:1fr}.birthday-field.full{grid-column:auto}}
 
+
+.color-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+.color-choice{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--line,#ddd);border-radius:10px;background:rgba(255,255,255,.72);font-size:.88rem;cursor:pointer}
+.color-choice input{accent-color:#b95312}
+.color-dot{width:21px;height:21px;min-width:21px;border:1px solid #c9c9c9;border-radius:50%;display:inline-block}
+@media(max-width:480px){.color-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 </style>
 </head>
 <body>
@@ -625,13 +632,38 @@ body{background:#fff;color:#171717}
 <div class="card creator-card">
 <div class="field"><label for="creatorType">Type d’événement</label><select id="creatorType"><option>Mariage</option><option>Fiançailles</option><option>Anniversaire</option><option>Baptême</option><option>Baby shower</option><option>Gala</option><option>Dîner privé</option><option>Événement corporatif</option><option>Conférence</option><option>Lancement de produit</option><option>Concert ou festival</option><option>Autre événement</option></select></div>
 <div class="field"><label for="creatorStyle">Style recherché</label><select id="creatorStyle"><option>Élégant et intemporel</option><option>Old Money / luxe discret</option><option>Romantique et floral</option><option>Moderne et minimaliste</option><option>Coloré et festif</option><option>VIP / prestige</option></select></div>
-<div class="field"><label for="creatorPalette">Palette de couleurs</label><select id="creatorPalette"><option>Bleu ciel, blanc et doré</option><option>Rouge, noir et doré</option><option>Blanc, ivoire et champagne</option><option>Rose poudré et blanc</option><option>Vert sauge et crème</option><option>Couleurs personnalisées</option></select></div>
+<div class="field"><label>Choisissez une ou plusieurs couleurs</label>
+<p class="small">Choisissez une seule couleur ou mélangez plusieurs couleurs pour créer votre propre palette.</p>
+<div class="color-choice-grid" id="creatorColorChoices">
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Rouge" data-color="#e31b23"><span class="color-dot" style="background:#e31b23"></span>Rouge</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Orange" data-color="#f58220"><span class="color-dot" style="background:#f58220"></span>Orange</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Jaune" data-color="#ffd500"><span class="color-dot" style="background:#ffd500"></span>Jaune</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Doré" data-color="#c5a45a"><span class="color-dot" style="background:#c5a45a"></span>Doré</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Vert" data-color="#239447"><span class="color-dot" style="background:#239447"></span>Vert</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Vert sauge" data-color="#a7bca4"><span class="color-dot" style="background:#a7bca4"></span>Vert sauge</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Bleu ciel" data-color="#87ceeb"><span class="color-dot" style="background:#87ceeb"></span>Bleu ciel</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Bleu royal" data-color="#4169e1"><span class="color-dot" style="background:#4169e1"></span>Bleu royal</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Bleu marine" data-color="#102a43"><span class="color-dot" style="background:#102a43"></span>Bleu marine</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Violet" data-color="#7f3fbf"><span class="color-dot" style="background:#7f3fbf"></span>Violet</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Mauve" data-color="#b784c7"><span class="color-dot" style="background:#b784c7"></span>Mauve</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Rose" data-color="#ef8fa8"><span class="color-dot" style="background:#ef8fa8"></span>Rose</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Rose poudré" data-color="#e8b7c8"><span class="color-dot" style="background:#e8b7c8"></span>Rose poudré</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Fuchsia" data-color="#d62976"><span class="color-dot" style="background:#d62976"></span>Fuchsia</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Blanc" data-color="#ffffff"><span class="color-dot" style="background:#ffffff"></span>Blanc</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Crème / ivoire" data-color="#f3ead7"><span class="color-dot" style="background:#f3ead7"></span>Crème / ivoire</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Beige" data-color="#d8c3a5"><span class="color-dot" style="background:#d8c3a5"></span>Beige</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Marron" data-color="#795548"><span class="color-dot" style="background:#795548"></span>Marron</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Noir" data-color="#171717"><span class="color-dot" style="background:#171717"></span>Noir</label>
+<label class="color-choice"><input type="checkbox" name="creatorColors" value="Gris / argenté" data-color="#aeb4ba"><span class="color-dot" style="background:#aeb4ba"></span>Gris / argenté</label>
+</div>
+<div class="field" style="margin-top:12px"><label for="creatorPalette">Autres couleurs ou mélange personnalisé</label><input id="creatorPalette" type="text" placeholder="Ex. rouge + orange + jaune, ou bleu ciel + blanc + doré"></div>
+</div>
 <div class="field"><label for="creatorGuests">Nombre approximatif d’invités</label><input id="creatorGuests" type="number" min="1" max="10000" placeholder="Ex. 100"></div>
 <div class="field"><label for="creatorNotes">Vos idées ou détails</label><textarea id="creatorNotes" placeholder="Décrivez votre vision, le lieu souhaité ou les éléments importants…"></textarea></div>
 <button type="button" class="btn primary" id="sendCreatorWhatsApp">Envoyer mon idée sur WhatsApp</button>
 </div>
 <div class="creator-preview">
-<div class="creator-preview-inner"><div class="eyebrow">Votre concept</div><div class="creator-sparkle">✧</div><h3 id="creatorPreviewType">MARIAGE</h3><p id="creatorPreviewStyle">Élégant et intemporel</p><div class="creator-swatches" id="creatorSwatches"><span></span><span></span><span></span></div><p id="creatorPreviewGuests" class="small">Votre nombre d’invités apparaîtra ici</p><p class="small">Concept indicatif, à affiner avec notre équipe.</p></div>
+<div class="creator-preview-inner"><div class="eyebrow">Votre concept</div><div class="creator-sparkle">✧</div><h3 id="creatorPreviewType">MARIAGE</h3><p id="creatorPreviewStyle">Élégant et intemporel</p><div class="creator-swatches" id="creatorSwatches"><span></span><span></span><span></span></div><p id="creatorPreviewPalette" class="small">Choisissez une ou plusieurs couleurs</p><p id="creatorPreviewGuests" class="small">Votre nombre d’invités apparaîtra ici</p><p class="small">Concept indicatif, à affiner avec notre équipe.</p></div>
 </div>
 </div>
 </div>
@@ -862,19 +894,24 @@ body{background:#fff;color:#171717}
     });
   }
   var type=document.getElementById('creatorType'),style=document.getElementById('creatorStyle'),palette=document.getElementById('creatorPalette'),guests=document.getElementById('creatorGuests');
+  var colorInputs=Array.from(document.querySelectorAll('input[name="creatorColors"]'));
+  function selectedColors(){return colorInputs.filter(function(el){return el.checked;}).map(function(el){return {name:el.value,color:el.dataset.color};});}
   function updateCreator(){
-    var t=type.value,s=style.value,p=palette.value,g=guests.value;
+    var t=type.value,s=style.value,p=selectedColors(),custom=palette.value.trim(),g=guests.value;
     document.getElementById('creatorPreviewType').textContent=t.toUpperCase();
     document.getElementById('creatorPreviewStyle').textContent=s;
     document.getElementById('creatorPreviewGuests').textContent=g?'Nombre approximatif d’invités : '+g:'Votre nombre d’invités apparaîtra ici';
-    var colors={'Bleu ciel, blanc et doré':['#9fd8f0','#ffffff','#c5a45a'],'Rouge, noir et doré':['#d71920','#171717','#c5a45a'],'Blanc, ivoire et champagne':['#ffffff','#f3ead7','#c5a45a'],'Rose poudré et blanc':['#e8b7c8','#ffffff','#d8c4a0'],'Vert sauge et crème':['#a7bca4','#f8f2e5','#d5c59b'],'Couleurs personnalisées':['#9fd8f0','#e8b7c8','#c5a45a']}[p]||['#9fd8f0','#ffffff','#c5a45a'];
-    document.querySelectorAll('#creatorSwatches span').forEach(function(el,i){el.style.background=colors[i]});
+    var swatches=document.querySelectorAll('#creatorSwatches span');
+    var fallback=['#9fd8f0','#ffffff','#c5a45a'];
+    swatches.forEach(function(el,i){el.style.background=p[i]?p[i].color:fallback[i];});
+    document.getElementById('creatorPreviewPalette').textContent=(p.map(function(x){return x.name;}).join(' + ')+(custom?(p.length?' + ':'')+custom:'') )||'Choisissez une ou plusieurs couleurs';
   }
   [type,style,palette,guests].forEach(function(el){if(el)el.addEventListener('input',updateCreator)});
+  colorInputs.forEach(function(el){el.addEventListener('change',updateCreator);});
   updateCreator();
   var sendCreator=document.getElementById('sendCreatorWhatsApp');
   if(sendCreator)sendCreator.addEventListener('click',function(){
-    var message='Bonjour THE MERCURY JUPITER EVENTS, voici mon idée d’événement :%0AType : '+encodeURIComponent(type.value)+'%0AStyle : '+encodeURIComponent(style.value)+'%0APalette : '+encodeURIComponent(palette.value)+'%0ANombre d’invités : '+encodeURIComponent(guests.value||'À préciser')+'%0ADétails : '+encodeURIComponent(document.getElementById('creatorNotes').value||'À discuter');
+    var chosen=selectedColors().map(function(x){return x.name;}).join(' + ');var custom=palette.value.trim();var paletteText=[chosen,custom].filter(Boolean).join(' + ')||'À choisir ensemble';var message='Bonjour THE MERCURY JUPITER EVENTS, voici mon idée d’événement :%0AType : '+encodeURIComponent(type.value)+'%0AStyle : '+encodeURIComponent(style.value)+'%0ACouleurs choisies : '+encodeURIComponent(paletteText)+'%0ANombre d’invités : '+encodeURIComponent(guests.value||'À préciser')+'%0ADétails : '+encodeURIComponent(document.getElementById('creatorNotes').value||'À discuter');
     window.open('https://wa.me/50937469553?text='+message,'_blank','noopener');
   });
   var calculate=document.getElementById('calculateBudget');
