@@ -73,6 +73,8 @@ h3{font:500 1rem/1.3 Georgia,"Times New Roman",serif;letter-spacing:.065em}
 .form-layout{display:grid;grid-template-columns:.7fr 1.3fr;gap:28px;align-items:start}
 .form{border:1px solid var(--line);padding:26px;background:#fff}
 .color-preference-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:10px}
+.palette-preview{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 8px 22px #00000008}.palette-preview h4{margin:0 0 6px;font-size:1rem}.palette-preview p{margin:0 0 12px;color:var(--muted);font-size:.88rem}.palette-swatches{display:flex;gap:8px;flex-wrap:wrap;min-height:42px;align-items:center}.palette-swatch{width:42px;height:42px;border-radius:50%;border:2px solid #ffffff;box-shadow:0 0 0 1px #0002;display:inline-block}.palette-empty{font-size:.85rem;color:var(--muted)}.palette-names{margin-top:10px;font-size:.88rem;font-weight:600}.palette-customizers{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.palette-customizer{display:flex;align-items:center;gap:7px;font-size:.82rem}.palette-customizer input{width:42px;height:34px;padding:2px;border:1px solid var(--line);border-radius:7px;background:#fff}
+
 .color-preference-grid .check{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:.82rem;letter-spacing:0;text-transform:none;font-weight:500}
 .color-dot{display:inline-block;flex:0 0 16px;width:16px;height:16px;border-radius:50%;box-shadow:0 0 0 1px #00000012}
 @media(max-width:640px){.color-preference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.color-preference-grid .check{padding:8px 6px;font-size:.76rem}}
@@ -561,7 +563,7 @@ body{background:#fff;color:#171717}
 <label class="check"><input type="checkbox" name="Couleurs souhaitées[]" value="Argenté"> <span class="color-dot" style="background:#c0c0c0"></span>Argenté</label>
 <label class="check"><input type="checkbox" name="Couleurs souhaitées[]" value="Cuivré"> <span class="color-dot" style="background:#b87333"></span>Cuivré</label>
 <label class="check"><input type="checkbox" name="Couleurs souhaitées[]" value="Multicolore — mélange de plusieurs couleurs"> <span class="color-dot" style="background:linear-gradient(90deg,red,orange,yellow,green,blue,violet)"></span>Multicolore — mélange de couleurs</label>
-</div></div>
+</div><div class="palette-preview" id="palettePreview" aria-live="polite"><h4>Votre palette en direct</h4><p>Sélectionnez les couleurs ci-dessus ou choisissez vos propres couleurs. L’aperçu se met à jour automatiquement.</p><div class="palette-swatches" id="paletteSwatches"><span class="palette-empty">Votre mélange apparaîtra ici.</span></div><div class="palette-names" id="paletteNames">Aucune couleur sélectionnée pour le moment.</div><div class="palette-customizers"><label class="palette-customizer">Couleur personnalisée 1 <input type="color" id="customColor1" value="#e11d2e" aria-label="Choisir une première couleur personnalisée"></label><label class="palette-customizer">Couleur personnalisée 2 <input type="color" id="customColor2" value="#87ceeb" aria-label="Choisir une deuxième couleur personnalisée"></label><label class="palette-customizer">Couleur personnalisée 3 <input type="color" id="customColor3" value="#d4af37" aria-label="Choisir une troisième couleur personnalisée"></label></div><p style="margin-top:10px">Les couleurs choisies ici seront ajoutées à votre demande si vous les utilisez.</p></div></div>
 <div class="field full"><label for="customColors">Autres couleurs ou mélange personnalisé (facultatif)</label><input id="customColors" name="Autres couleurs / mélange personnalisé" placeholder="Ex. rouge + bleu ciel + doré"></div>
 <div class="field"><label for="style">Style recherché *</label><select id="style" name="Style recherché" required><option value="">Sélectionner</option><option>Élégant</option><option>Luxe</option><option>Minimaliste</option><option>Moderne</option><option>Classique</option><option>Glamour</option><option>Corporate</option><option>Intime</option><option>Festif</option><option>Créatif</option><option>Rustique</option><option>Romantique</option><option>Traditionnel</option><option>Contemporain</option><option>Autre</option></select></div>
 <div class="field full"><span class="group-title">Ambiance recherchée — vous pouvez en choisir plusieurs *</span><div class="checks">
@@ -1048,6 +1050,37 @@ body{background:#fff;color:#171717}
 })();
 </script>
 
+
+
+<script>
+(function(){
+ var checks=Array.from(document.querySelectorAll('input[name="Couleurs souhaitées[]"]'));
+ var swatches=document.getElementById('paletteSwatches');
+ var names=document.getElementById('paletteNames');
+ var customInputs=['customColor1','customColor2','customColor3'].map(function(id){return document.getElementById(id);});
+ if(!checks.length||!swatches||!names)return;
+ function renderPalette(){
+   var selected=checks.filter(function(input){return input.checked;}).map(function(input){
+     var label=input.closest('label');
+     var dot=label&&label.querySelector('.color-dot');
+     return {name:input.value.replace(' — mélange de plusieurs couleurs',''),color:dot?(dot.style.backgroundColor||dot.style.background):'#cccccc'};
+   });
+   var custom=customInputs.filter(function(input){return input&&input.dataset.active==='true';}).map(function(input,i){return {name:'Couleur personnalisée '+(i+1),color:input.value};});
+   var all=selected.concat(custom);
+   swatches.innerHTML='';
+   if(!all.length){swatches.innerHTML='<span class="palette-empty">Sélectionnez une couleur ou utilisez les sélecteurs personnalisés.</span>';names.textContent='Aucune couleur sélectionnée pour le moment.';return;}
+   all.forEach(function(item){var chip=document.createElement('span');chip.className='palette-swatch';chip.style.background=item.color;chip.title=item.name+' — '+item.color;chip.setAttribute('aria-label',item.name+' '+item.color);swatches.appendChild(chip);});
+   names.textContent='Votre palette : '+all.map(function(item){return item.name;}).join(' + ');
+   var customField=document.getElementById('customColors');
+   if(customField){var customNames=custom.map(function(item){return item.color;});if(customNames.length){customField.value='Couleurs personnalisées : '+customNames.join(' + ');}}
+ }
+ checks.forEach(function(input){input.addEventListener('change',renderPalette);});
+ customInputs.forEach(function(input){if(!input)return;input.addEventListener('input',function(){input.dataset.active='true';renderPalette();});});
+ var form=document.getElementById('eventInquiryForm')||document.querySelector('form');
+ if(form)form.addEventListener('submit',function(){customInputs.forEach(function(input){if(input&&input.dataset.active!=='true')input.dataset.active='false';});renderPalette();});
+ renderPalette();
+})();
+</script>
 
 </body>
 </html>
