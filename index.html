@@ -480,8 +480,8 @@ body{background:#fff;color:#171717}
 <div class="form-section"><h3>03 — Votre budget</h3>
 <p class="small">Indiquez une fourchette indicative afin que notre équipe puisse adapter sa proposition à votre projet. Les équivalents sont calculés au taux de référence BRH du 10 octobre 2026 : 1 USD = 130,5488 HTG. Les montants en gourdes sont indicatifs et peuvent évoluer avec le taux du jour.</p>
 <div class="fieldgrid">
-<div class="field full"><label for="budget">Budget estimé pour l’événement *</label>
-<select id="budget" name="Budget estimé pour l’événement" required>
+<div class="field full"><label for="budget">Budget estimé pour l’événement (facultatif si vous saisissez un montant personnalisé)</label>
+<select id="budget" name="Budget estimé pour l’événement">
 <option value="">Sélectionner un budget en USD — équivalent en gourdes HTG</option>
 <option value="1,000 USD — 130 549 HTG">1,000 dollars américains (USD) — environ 130 549 gourdes (HTG)</option>
 <option value="2,000 USD — 261 098 HTG">2,000 dollars américains (USD) — environ 261 098 gourdes (HTG)</option>
@@ -584,6 +584,13 @@ body{background:#fff;color:#171717}
 <option value="99,000 USD — 12 924 331 HTG">99,000 dollars américains (USD) — environ 12 924 331 gourdes (HTG)</option>
 <option value="100,000 USD — 13 054 880 HTG">100,000 dollars américains (USD) — environ 13 054 880 gourdes (HTG)</option>
 </select></div>
+<div class="field full"><label for="budgetCustom">Ou saisissez votre propre budget</label>
+<div class="fieldgrid">
+<div class="field"><input id="budgetCustom" name="Budget personnalisé — montant" type="number" min="1" step="any" inputmode="decimal" placeholder="Entrez le montant que vous souhaitez"></div>
+<div class="field"><label for="budgetCurrency">Devise</label><select id="budgetCurrency" name="Devise du budget personnalisé"><option value="HTG — gourdes haïtiennes">Gourdes haïtiennes (HTG)</option><option value="USD — dollars américains">Dollars américains (USD)</option></select></div>
+</div>
+<p class="small">Vous pouvez choisir une option dans la liste ou entrer librement le montant de votre choix, même s’il est inférieur ou supérieur aux montants proposés. Si vous saisissez un budget personnalisé, notre équipe en tiendra compte pour préparer une proposition adaptée.</p>
+</div>
 </div></div>
 
 <div class="form-section"><h3>03 — Vos services</h3><p class="small">Sélectionnez au moins un service.</p><div class="checks">
